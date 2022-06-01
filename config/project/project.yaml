@@ -1,4 +1,4 @@
-dateModified: 1636493100
+dateModified: 1654103326
 email:
   fromEmail: admin@craftcms.com
   fromName: 'Codespace demo'
@@ -6,13 +6,14 @@ email:
 meta:
   __names__:
     46dc3b75-fa51-4451-a221-7007603d35bd: 'Codespace demo' # Codespace demo
+    b5cf7a90-e8bf-4f20-93e8-269c30f44f17: 'Public Schema' # Public Schema
     bfab85ce-6e12-46ec-97f7-3d9a770bf83c: 'Codespace demo' # Codespace demo
     cb2c8fe5-b56d-49c9-b4a3-643edf5e0ce5: Common # Common
 system:
   edition: solo
   live: true
   name: 'Codespace demo'
-  schemaVersion: 3.7.8
+  schemaVersion: 3.7.33
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
