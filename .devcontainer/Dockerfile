@@ -1,20 +1,20 @@
-# [Choice] PHP version (use -bullseye variants on local arm64/Apple Silicon): 8-apache-bullseye, 8.1-apache-bullseye, 8.0-apache-bullseye, 7-apache-bullseye, 7.4-apache-bullseye, 8-apache-buster, 8.1-apache-buster, 8.0-apache-buster, 7-apache-buster, 7.4-apache-buster
-ARG VARIANT=8.1-apache-bullseye
-FROM php:${VARIANT}
+FROM mcr.microsoft.com/devcontainers/php:8-bullseye
 
-# Install xdebug
-RUN yes | pecl install xdebug \
-	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-	&& echo "xdebug.mode = debug" >> /usr/local/etc/php/conf.d/xdebug.ini \
-	&& echo "xdebug.start_with_request = yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
-	&& echo "xdebug.client_port = 9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
-	&& rm -rf /tmp/pear
-
-# Install composer
-RUN curl -sSL https://getcomposer.org/installer | php \
-	&& chmod +x composer.phar \
-	&& mv composer.phar /usr/local/bin/composer
-
-# [Optional] Uncomment this section to install additional packages.
+# Install MariaDB client
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get -y install --no-install-recommends mariadb-server
+    && apt-get install -y mariadb-client libmagickwand-dev \ 
+    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+RUN pecl install imagick
+
+RUN docker-php-ext-enable imagick
+
+# Install php-mysql driver
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
+
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1

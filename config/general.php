@@ -10,7 +10,7 @@
 
 use craft\helpers\App;
 
-$isDev = App::env('ENVIRONMENT') === 'dev';
+$isDev = true;
 $isProd = App::env('ENVIRONMENT') === 'production';
 
 $isCodespaces = App::env('CODESPACES');
