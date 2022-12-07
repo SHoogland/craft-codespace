@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/devcontainers/php:8-bullseye
 
 # Install MariaDB client
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client libmagickwand-dev \ 
+    && apt-get install -y mariadb-client imagemagick libmagickwand-dev libzip-dev \ 
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 RUN pecl install imagick
@@ -10,7 +10,7 @@ RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 
 # Install php-mysql driver
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql zip
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
